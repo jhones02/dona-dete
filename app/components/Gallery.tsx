@@ -17,18 +17,30 @@ export default function Gallery() {
     const [selected, setSelected] = useState<string | null>(null);
 
     return (
-        <section id="gallery" className="bg-brand-cream py-20">
+        <section id="gallery" className="bg-brand-redDark py-24">
             <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-3xl font-extrabold text-brand-red text-center mb-12">Galeria</h2>
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-4xl font-extrabold text-white text-center mb-14"
+                >
+                    Galeria
+                </motion.h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 [&>*:nth-child(1)]:row-span-2">
-                    {images.map((img) => (
+                    {images.map((img, i) => (
                         <motion.button
                             key={img}
                             onClick={() => setSelected(img)}
-                            whileHover={{ scale: 1.03 }}
-                            className="relative h-40 md:h-52 rounded-xl2 overflow-hidden shadow-md"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.08 }}
+                            whileHover={{ scale: 1.04 }}
+                            className="relative h-40 md:h-52 rounded-2xl overflow-hidden shadow-xl border border-white/10"
                         >
                             <Image src={img} alt="Galeria Dona Dete" fill loading="lazy" className="object-cover" />
+                            <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors" />
                         </motion.button>
                     ))}
                 </div>
@@ -41,7 +53,7 @@ export default function Gallery() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelected(null)}
-                        className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4"
+                        className="fixed inset-0 bg-black/85 z-[100] flex items-center justify-center p-4"
                     >
                         <button className="absolute top-6 right-6 text-white">
                             <X size={32} />

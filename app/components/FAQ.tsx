@@ -15,20 +15,32 @@ export default function FAQ() {
     const [open, setOpen] = useState<number | null>(null);
 
     return (
-        <section id="faq" className="bg-brand-cream py-20">
+        <section id="faq" className="bg-brand-cream py-24">
             <div className="max-w-3xl mx-auto px-4">
-                <h2 className="text-3xl font-extrabold text-brand-red text-center mb-12">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
+                >
                     Perguntas Frequentes
-                </h2>
+                </motion.h2>
                 <div className="flex flex-col gap-4">
                     {faqs.map((f, i) => (
-                        <div key={f.q} className="bg-white rounded-xl2 shadow-sm overflow-hidden">
+                        <motion.div
+                            key={f.q}
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.08 }}
+                            className="bg-white rounded-2xl shadow-sm border border-brand-gold/20 overflow-hidden"
+                        >
                             <button
                                 onClick={() => setOpen(open === i ? null : i)}
                                 className="w-full flex justify-between items-center p-5 font-semibold text-brand-redDark"
                             >
                                 {f.q}
-                                <ChevronDown className={`transition-transform ${open === i ? "rotate-180" : ""}`} />
+                                <ChevronDown className={`transition-transform ${open === i ? "rotate-180 text-brand-red" : ""}`} />
                             </button>
                             <AnimatePresence>
                                 {open === i && (
@@ -42,7 +54,7 @@ export default function FAQ() {
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

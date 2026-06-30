@@ -23,31 +23,44 @@ const items = [
 
 export default function Products() {
     return (
-        <section id="products" className="bg-brand-beige py-20">
+        <section id="products" className="bg-brand-cream py-24">
             <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-3xl font-extrabold text-brand-red text-center mb-12">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
+                >
                     Nossos Produtos
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
+                </motion.h2>
+                <div className="grid md:grid-cols-2 gap-10">
                     {items.map((item, i) => (
                         <motion.div
                             key={item.title}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: i * 0.15 }}
-                            className="bg-white rounded-xl2 shadow-md overflow-hidden hover:shadow-xl transition-shadow"
+                            whileHover={{ y: -8 }}
+                            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all"
                         >
-                            <div className="relative h-56">
-                                <Image src={item.img} alt={item.title} fill className="object-cover" />
+                            <div className="relative h-64 overflow-hidden">
+                                <motion.div
+                                    whileHover={{ scale: 1.08 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image src={item.img} alt={item.title} fill className="object-cover" />
+                                </motion.div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                             </div>
-                            <div className="p-6">
+                            <div className="p-7">
                                 <h3 className="text-xl font-bold text-brand-red mb-2">{item.title}</h3>
-                                <p className="text-brand-redDark/80 text-sm mb-4">{item.desc}</p>
+                                <p className="text-brand-redDark/80 text-sm mb-5">{item.desc}</p>
                                 <a
                                     href={item.href}
                                     target="_blank"
-                                    className="inline-block bg-brand-red text-white font-semibold px-5 py-2 rounded-full hover:bg-brand-redDark transition-colors"
+                                    className="inline-block bg-brand-red text-white font-semibold px-6 py-2.5 rounded-full hover:bg-brand-redDark transition-colors"
                                 >
                                     {item.cta}
                                 </a>

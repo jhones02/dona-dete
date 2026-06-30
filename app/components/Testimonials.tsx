@@ -11,11 +11,16 @@ const reviews = [
 
 export default function Testimonials() {
     return (
-        <section className="bg-brand-beige py-20">
+        <section className="bg-brand-beige py-24">
             <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-3xl font-extrabold text-brand-red text-center mb-12">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
+                >
                     O que dizem nossos clientes
-                </h2>
+                </motion.h2>
                 <div className="grid md:grid-cols-3 gap-6">
                     {reviews.map((r, i) => (
                         <motion.div
@@ -24,7 +29,8 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: i * 0.15 }}
-                            className="bg-white rounded-xl2 shadow-sm p-6"
+                            whileHover={{ y: -6 }}
+                            className="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition-all"
                         >
                             <div className="flex gap-1 text-brand-gold mb-3">
                                 {Array.from({ length: 5 }).map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
