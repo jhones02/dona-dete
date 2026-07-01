@@ -1,61 +1,108 @@
-// src/components/Navbar.tsx
 "use client";
-import { useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
 
-const links = [
-    { label: "Início", href: "#hero" },
-    { label: "Quem Somos", href: "#about" },
-    { label: "Produtos", href: "#products" },
-    { label: "Como Funciona", href: "#how" },
-    { label: "Galeria", href: "#gallery" },
-    { label: "FAQ", href: "#faq" },
-];
+import { navItems, siteConfig } from "@/lib/site";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
-    const [open, setOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setIsScrolled(window.scrollY > 40);
+        onScroll();
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     return (
-        <header className="sticky top-0 z-50 bg-brand-cream/90 backdrop-blur-md shadow-sm">
-            <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-                <motion.div
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                    className="flex items-center gap-2"
-                >
-                    <Image src="/logo.png" alt="Dona Dete" width={48} height={48} className="rounded-full" />
-                    <span className="font-bold text-brand-red text-lg">Dona Dete</span>
-                </motion.div>
+        <header
+            className={`fixed left-0 top-8 z-40 w-full transition-all duration-500 ${
+                isScrolled
+                    ? "bg-white/95 shadow-soft backdrop-blur-xl"
+                    : "bg-transparent"
+            }`}
+        >
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8">
+                <a href="#inicio" className="flex items-center gap-3">
+                    <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white shadow-soft">
+                        <Image
+                            src={siteConfig.logo}
+                            alt="Logo Dona Dete"
+                            fill
+                            priority
+                            sizes="48px"
+                            className="object-contain p-1"
+                        />
+                    </div>
 
-                <ul className="hidden md:flex gap-6 text-sm font-semibold">
-                    {links.map((l) => (
-                        <li key={l.href}>
-                            <a href={l.href} className="hover:text-brand-red transition-colors">
-                                {l.label}
-                            </a>
-                        </li>
+                    <span
+                        className={`text-lg font-black transition ${
+                            isScrolled ? "text-primary" : "text-white"
+                        }`}
+                    >
+            Dona Dete
+          </span>
+                </a>
+
+                <nav className="hidden items-center gap-8 lg:flex">
+                    {navItems.map((item) => (
+                        <a
+                            key={item.href}
+                            href={item.href}
+                            className={`text-sm font-bold transition hover:text-brandGold ${
+                                isScrolled ? "text-text" : "text-white"
+                            }`}
+                        >
+                            {item.label}
+                        </a>
                     ))}
-                </ul>
 
-                <button onClick={() => setOpen(!open)} className="md:hidden">
-                    {open ? <X /> : <Menu />}
+                    <a
+                        href={siteConfig.whatsappUrl}
+                        className="rounded-full bg-primary px-5 py-3 text-sm font-black text-white shadow-warm transition hover:-translate-y-0.5 hover:bg-primary-dark"
+                    >
+                        Fazer Pedido
+                    </a>
+                </nav>
+
+                <button
+                    type="button"
+                    aria-label="Abrir menu"
+                    onClick={() => setIsOpen((current) => !current)}
+                    className={`rounded-full p-2 transition lg:hidden ${
+                        isScrolled ? "bg-primary text-white" : "bg-white text-primary"
+                    }`}
+                >
+                    {isOpen ? <X size={22} /> : <Menu size={22} />}
                 </button>
-            </nav>
+            </div>
 
-            {open && (
-                <motion.ul
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="md:hidden flex flex-col gap-3 px-6 pb-4 font-semibold"
-                >
-                    {links.map((l) => (
-                        <li key={l.href}>
-                            <a href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
-                        </li>
-                    ))}
-                </motion.ul>
+            {isOpen && (
+                <div className="mx-5 mb-4 rounded-3xl bg-white p-4 shadow-soft lg:hidden">
+                    <div className="flex flex-col gap-2">
+                        {navItems.map((item) => (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                onClick={() => setIsOpen(false)}
+                                className="rounded-2xl px-4 py-3 text-sm font-bold text-text transition hover:bg-cream hover:text-primary"
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+
+                        <a
+                            href={siteConfig.whatsappUrl}
+                            className="mt-2 rounded-full bg-primary px-5 py-3 text-center text-sm font-black text-white transition hover:bg-primary-dark"
+                        >
+                            Fazer Pedido
+                        </a>
+                    </div>
+                </div>
             )}
         </header>
     );

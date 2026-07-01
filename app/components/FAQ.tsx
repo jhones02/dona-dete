@@ -1,61 +1,80 @@
-// src/components/FAQ.tsx
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import SectionReveal from "./SectionReveal";
 
 const faqs = [
-    { q: "Como preparar o pão de queijo?", a: "Leve direto do freezer ao forno preaquecido, sem precisar descongelar, até dourar." },
-    { q: "O produto é congelado?", a: "Sim! Mantemos congelado para preservar o sabor e a qualidade até chegar à sua mesa." },
-    { q: "Vocês fazem entregas?", a: "Sim, entregamos. Entre em contato pelo WhatsApp para verificar sua região." },
-    { q: "Qual o tempo de preparo?", a: "Em média 20 a 25 minutos no forno, dependendo da quantidade." },
+    {
+        question: "Como preparar o pão de queijo?",
+        answer:
+            "Retire do freezer, coloque em uma forma com espaço entre eles e leve ao forno preaquecido até ficarem douradinhos."
+    },
+    {
+        question: "O produto é congelado?",
+        answer:
+            "Sim. Nossos produtos são entregues congelados para preservar sabor, textura e praticidade."
+    },
+    {
+        question: "Vocês fazem entregas?",
+        answer:
+            "Sim. Consulte a disponibilidade de entrega pelo WhatsApp informando seu endereço."
+    },
+    {
+        question: "Qual o tempo de preparo?",
+        answer:
+            "O tempo pode variar conforme o forno, mas normalmente fica pronto em poucos minutos, quando estiver bem dourado."
+    }
 ];
 
 export default function FAQ() {
-    const [open, setOpen] = useState<number | null>(null);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <section id="faq" className="bg-brand-cream py-24">
-            <div className="max-w-3xl mx-auto px-4">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
-                >
-                    Perguntas Frequentes
-                </motion.h2>
-                <div className="flex flex-col gap-4">
-                    {faqs.map((f, i) => (
-                        <motion.div
-                            key={f.q}
-                            initial={{ opacity: 0, y: 15 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 }}
-                            className="bg-white rounded-2xl shadow-sm border border-brand-gold/20 overflow-hidden"
-                        >
-                            <button
-                                onClick={() => setOpen(open === i ? null : i)}
-                                className="w-full flex justify-between items-center p-5 font-semibold text-brand-redDark"
-                            >
-                                {f.q}
-                                <ChevronDown className={`transition-transform ${open === i ? "rotate-180 text-brand-red" : ""}`} />
-                            </button>
-                            <AnimatePresence>
-                                {open === i && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        className="px-5 pb-5 text-brand-redDark/70 text-sm"
+        <section id="faq" className="bg-white px-5 py-24 lg:px-8">
+            <div className="mx-auto max-w-4xl">
+                <SectionReveal className="mb-12 text-center">
+                    <p className="mb-4 font-black uppercase tracking-[0.25em] text-primary">
+                        Perguntas frequentes
+                    </p>
+
+                    <h2 className="text-balance text-4xl font-black text-text sm:text-5xl">
+                        Dúvidas comuns antes do pedido.
+                    </h2>
+                </SectionReveal>
+
+                <div className="space-y-4">
+                    {faqs.map((faq, index) => {
+                        const isOpen = openIndex === index;
+
+                        return (
+                            <SectionReveal key={faq.question} delay={index * 0.04}>
+                                <div className="overflow-hidden rounded-3xl bg-cream shadow-soft">
+                                    <button
+                                        type="button"
+                                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                                        className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left"
                                     >
-                                        {f.a}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    ))}
+                    <span className="text-lg font-black text-text">
+                      {faq.question}
+                    </span>
+
+                                        <ChevronDown
+                                            className={`shrink-0 text-primary transition ${
+                                                isOpen ? "rotate-180" : ""
+                                            }`}
+                                        />
+                                    </button>
+
+                                    {isOpen && (
+                                        <div className="px-6 pb-6 leading-7 text-text/70">
+                                            {faq.answer}
+                                        </div>
+                                    )}
+                                </div>
+                            </SectionReveal>
+                        );
+                    })}
                 </div>
             </div>
         </section>

@@ -1,42 +1,49 @@
-// src/components/Testimonials.tsx
-"use client";
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import SectionReveal from "./SectionReveal";
 
-const reviews = [
-    "O melhor pão de queijo da cidade.",
-    "Crocante por fora e macio por dentro.",
-    "Todo café da tarde aqui em casa tem Dona Dete.",
+const testimonials = [
+    {
+        text: "O melhor pão de queijo da cidade.",
+        author: "Cliente Dona Dete"
+    },
+    {
+        text: "Crocante por fora e macio por dentro.",
+        author: "Cliente Dona Dete"
+    },
+    {
+        text: "Todo café da tarde aqui em casa tem Dona Dete.",
+        author: "Cliente Dona Dete"
+    }
 ];
 
 export default function Testimonials() {
     return (
-        <section className="bg-brand-beige py-24">
-            <div className="max-w-5xl mx-auto px-4">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
-                >
-                    O que dizem nossos clientes
-                </motion.h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                    {reviews.map((r, i) => (
-                        <motion.div
-                            key={r}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.15 }}
-                            whileHover={{ y: -6 }}
-                            className="bg-white rounded-2xl shadow-md p-7 hover:shadow-xl transition-all"
-                        >
-                            <div className="flex gap-1 text-brand-gold mb-3">
-                                {Array.from({ length: 5 }).map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
-                            </div>
-                            <p className="text-brand-redDark/80 italic">"{r}"</p>
-                        </motion.div>
+        <section className="bg-cream px-5 py-24 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+                <SectionReveal className="mx-auto mb-14 max-w-2xl text-center">
+                    <p className="mb-4 font-black uppercase tracking-[0.25em] text-primary">
+                        Avaliações
+                    </p>
+
+                    <h2 className="text-balance text-4xl font-black text-text sm:text-5xl">
+                        Quem prova, recomenda.
+                    </h2>
+                </SectionReveal>
+
+                <div className="grid gap-6 lg:grid-cols-3">
+                    {testimonials.map((testimonial, index) => (
+                        <SectionReveal key={testimonial.text} delay={index * 0.08}>
+                            <figure className="h-full rounded-5xl bg-white p-8 shadow-soft">
+                                <div className="mb-5 text-xl text-brandGold">★★★★★</div>
+
+                                <blockquote className="text-2xl font-black leading-tight text-text">
+                                    “{testimonial.text}”
+                                </blockquote>
+
+                                <figcaption className="mt-6 font-bold text-primary">
+                                    {testimonial.author}
+                                </figcaption>
+                            </figure>
+                        </SectionReveal>
                     ))}
                 </div>
             </div>

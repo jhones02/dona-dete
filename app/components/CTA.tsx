@@ -1,32 +1,35 @@
-// src/components/CTA.tsx
-"use client";
-import { motion } from "framer-motion";
-import { SOCIAL } from "@/lib/constants";
+import { siteConfig } from "@/lib/site";
+import { MessageCircle } from "lucide-react";
+import SectionReveal from "./SectionReveal";
 
 export default function CTA() {
     return (
-        <section className="relative bg-gradient-to-br from-brand-red to-brand-redDark py-24 text-center text-white overflow-hidden">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_0%,white,transparent_50%)]" />
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="relative max-w-2xl mx-auto px-4"
-            >
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
+        <section className="relative overflow-hidden bg-primary px-5 py-24 text-white lg:px-8">
+            <div className="absolute inset-0 noise opacity-20" />
+            <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-brandGold/30 blur-3xl" />
+            <div className="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-black/20 blur-3xl" />
+
+            <SectionReveal className="relative z-10 mx-auto max-w-4xl text-center">
+                <p className="mb-5 font-black uppercase tracking-[0.25em] text-brandGold">
+                    É hora do café
+                </p>
+
+                <h2 className="text-balance text-4xl font-black leading-tight sm:text-6xl">
                     Seu café merece um pão de queijo de verdade.
                 </h2>
-                <p className="mb-8 text-white/90 text-lg">Do freezer ao forno, é amor à primeira mordida!</p>
-                <motion.a
-                    whileHover={{ scale: 1.06 }}
-                    href={SOCIAL.whatsapp}
-                    target="_blank"
-                    className="inline-block bg-brand-gold text-brand-redDark font-bold px-10 py-4 rounded-full shadow-2xl transition-transform text-lg"
+
+                <p className="mx-auto mt-6 max-w-2xl text-xl leading-8 text-white/85">
+                    Do freezer ao forno, é amor à primeira mordida!
+                </p>
+
+                <a
+                    href={siteConfig.whatsappUrl}
+                    className="mt-10 inline-flex items-center justify-center gap-3 rounded-full bg-brandGold px-9 py-5 text-lg font-black text-text shadow-soft transition hover:-translate-y-1 hover:bg-bg-light"
                 >
+                    <MessageCircle size={24} />
                     Peça agora pelo WhatsApp
-                </motion.a>
-            </motion.div>
+                </a>
+            </SectionReveal>
         </section>
     );
 }

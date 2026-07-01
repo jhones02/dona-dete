@@ -1,8 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    images: {
-        formats: ["image/avif", "image/webp"],
-    },
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    formats: ["image/avif", "image/webp"]
+  },
+  compress: true
 };
 
-module.exports = nextConfig;
+export default nextConfig;

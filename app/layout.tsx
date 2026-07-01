@@ -1,39 +1,60 @@
-// src/app/layout.tsx
-import type { Metadata } from "next";
-import { Baloo_2 } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Nunito } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import BackToTop from "@/components/BackToTop";
+import { siteConfig } from "@/lib/site";
 
-const baloo = Baloo_2({ subsets: ["latin"], variable: "--font-baloo", weight: ["400","500","600","700","800"] });
+const nunito = Nunito({
+    subsets: ["latin"],
+    variable: "--font-site",
+    display: "swap"
+});
 
 export const metadata: Metadata = {
-    title: "Dona Dete | Pão de Queijo Artesanal",
-    description:
-        "Pão de queijo artesanal congelado, feito com ingredientes selecionados. Faça seu pedido e experimente o verdadeiro sabor mineiro.",
-    openGraph: {
-        title: "Dona Dete | Pão de Queijo Artesanal",
-        description:
-            "Pão de queijo artesanal congelado, feito com ingredientes selecionados.",
-        images: ["/og-image.jpg"],
-        locale: "pt_BR",
-        type: "website",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    metadataBase: new URL("https://donadete.com.br"),
+    icons: {
+        icon: "/favicon.ico"
     },
-    icons: { icon: "/favicon.ico" },
+    openGraph: {
+        title: siteConfig.title,
+        description: siteConfig.description,
+        type: "website",
+        locale: "pt_BR",
+        url: "https://donadete.com.br",
+        siteName: siteConfig.name,
+        images: [
+            {
+                url: "/images/hero-pao-de-queijo.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Pão de queijo artesanal Dona Dete"
+            }
+        ]
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: siteConfig.title,
+        description: siteConfig.description,
+        images: ["/images/hero-pao-de-queijo.jpg"]
+    }
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const viewport: Viewport = {
+    themeColor: "#B71C1C",
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5
+};
+
+export default function RootLayout({
+                                       children
+                                   }: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <html lang="pt-BR" className={baloo.variable}>
-        <body className="bg-brand-cream text-brand-redDark font-sans scroll-smooth antialiased">
-        <Navbar />
-        {children}
-        <Footer />
-        <FloatingWhatsApp />
-        <BackToTop />
-        </body>
+        <html lang="pt-BR" className={nunito.variable}>
+        <body>{children}</body>
         </html>
     );
 }

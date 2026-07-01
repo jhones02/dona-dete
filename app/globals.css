@@ -1,6 +1,58 @@
-/* src/app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
+:root {
+    --color-bg: #F2C94C;
+    --color-bg-light: #F9E4A8;
+    --color-primary: #B71C1C;
+    --color-primary-dark: #8C1414;
+    --color-text: #1A1A1A;
+    --color-white: #FFFFFF;
+    --color-accent: #25D366;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--color-text);
+    background: #fff7e6;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.noise {
+    background-image: radial-gradient(circle at 1px 1px, rgba(26, 26, 26, 0.08) 1px, transparent 0);
+    background-size: 22px 22px;
+}
+
+.text-balance {
+    text-wrap: balance;
+}
+
+.masonry {
+    column-gap: 1rem;
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    .masonry {
+        columns: 2;
+    }
+}
+
+@media (min-width: 1024px) {
+    .masonry {
+        columns: 3;
+    }
+}

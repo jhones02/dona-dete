@@ -1,26 +1,44 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
-export default {
-    content: ["./src/**/*.{ts,tsx}"],
+const config: Config = {
+    content: [
+        "./app/**/*.{ts,tsx}",
+        "./components/**/*.{ts,tsx}",
+        "./lib/**/*.{ts,tsx}"
+    ],
     theme: {
         extend: {
             colors: {
-                brand: {
-                    red: "#B31217",
-                    redDark: "#8C0F13",
-                    gold: "#F4B400",
-                    cream: "#FFF8EC",
-                    beige: "#F5E6D3",
-                },
+                bg: "#F2C94C",
+                "bg-light": "#F9E4A8",
+                primary: "#B71C1C",
+                "primary-dark": "#8C1414",
+                text: "#1A1A1A",
+                white: "#FFFFFF",
+                accent: "#25D366",
+                cream: "#FFF7E6",
+                beige: "#F8E7C7",
+                brandRed: "#B31217",
+                brandGold: "#F4B400"
             },
             fontFamily: {
-                sans: ["var(--font-baloo)", "ui-rounded", "sans-serif"],
+                sans: ["var(--font-site)", "system-ui", "sans-serif"]
+            },
+            boxShadow: {
+                soft: "0 18px 45px rgba(26, 26, 26, 0.10)",
+                warm: "0 20px 60px rgba(183, 28, 28, 0.18)"
             },
             borderRadius: {
-                xl2: "1.5rem",
+                "4xl": "2rem",
+                "5xl": "2.5rem"
             },
-        },
+            backgroundImage: {
+                grain:
+                    "radial-gradient(circle at 1px 1px, rgba(26,26,26,.08) 1px, transparent 0)"
+            }
+        }
     },
-    plugins: [],
-} satisfies Config;
+    plugins: []
+};
+
+export default config;

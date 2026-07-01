@@ -1,71 +1,74 @@
-// src/components/Products.tsx
-"use client";
+import { siteConfig } from "@/lib/site";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { SOCIAL } from "@/lib/constants";
+import SectionReveal from "./SectionReveal";
 
-const items = [
+const products = [
     {
         title: "Pão de Queijo Congelado",
-        desc: "Crocante por fora, macio por dentro. Do freezer ao forno, é amor à primeira mordida.",
-        img: "/imgs/pao-de-queijo-congelado.jpg",
-        cta: "Quero Comprar",
-        href: SOCIAL.whatsapp,
+        description:
+            "Pão de queijo artesanal congelado, perfeito para assar em casa e servir quentinho.",
+        image: "/images/produto-pao-de-queijo.jpg",
+        button: "Quero Comprar"
     },
     {
         title: "Biscoito de Queijo",
-        desc: "Crocante, feito com queijo de alta qualidade e sabor irresistível.",
-        img: "/imgs/biscoito-de-queijo.jpg",
-        cta: "Saiba Mais",
-        href: SOCIAL.whatsapp,
-    },
+        description:
+            "Sabor caseiro, textura deliciosa e aquele toque mineiro que combina com café.",
+        image: "/images/galeria-2.jpg",
+        button: "Saiba Mais"
+    }
 ];
 
 export default function Products() {
     return (
-        <section id="products" className="bg-brand-cream py-24">
-            <div className="max-w-5xl mx-auto px-4">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-4xl font-extrabold text-brand-red text-center mb-14"
-                >
-                    Nossos Produtos
-                </motion.h2>
-                <div className="grid md:grid-cols-2 gap-10">
-                    {items.map((item, i) => (
-                        <motion.div
-                            key={item.title}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.15 }}
-                            whileHover={{ y: -8 }}
-                            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all"
-                        >
-                            <div className="relative h-64 overflow-hidden">
-                                <motion.div
-                                    whileHover={{ scale: 1.08 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="absolute inset-0"
-                                >
-                                    <Image src={item.img} alt={item.title} fill className="object-cover" />
-                                </motion.div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                            </div>
-                            <div className="p-7">
-                                <h3 className="text-xl font-bold text-brand-red mb-2">{item.title}</h3>
-                                <p className="text-brand-redDark/80 text-sm mb-5">{item.desc}</p>
-                                <a
-                                    href={item.href}
-                                    target="_blank"
-                                    className="inline-block bg-brand-red text-white font-semibold px-6 py-2.5 rounded-full hover:bg-brand-redDark transition-colors"
-                                >
-                                    {item.cta}
-                                </a>
-                            </div>
-                        </motion.div>
+        <section id="produtos" className="bg-white px-5 py-24 lg:px-8">
+            <div className="mx-auto max-w-7xl">
+                <SectionReveal className="mx-auto mb-14 max-w-2xl text-center">
+                    <p className="mb-4 font-black uppercase tracking-[0.25em] text-primary">
+                        Produtos
+                    </p>
+
+                    <h2 className="text-balance text-4xl font-black text-text sm:text-5xl">
+                        Do freezer ao forno, pronto para deixar seu café mais feliz.
+                    </h2>
+                </SectionReveal>
+
+                <div className="grid gap-8 lg:grid-cols-2">
+                    {products.map((product, index) => (
+                        <SectionReveal key={product.title} delay={index * 0.08}>
+                            <article className="group overflow-hidden rounded-5xl bg-cream shadow-soft transition duration-500 hover:-translate-y-2 hover:shadow-warm">
+                                <div className="relative h-72 overflow-hidden">
+                                    <Image
+                                        src={product.image}
+                                        alt={product.title}
+                                        fill
+                                        loading="lazy"
+                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                        className="object-cover transition duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+                                </div>
+
+                                <div className="p-8">
+                                    <h3 className="text-3xl font-black text-primary">
+                                        {product.title}
+                                    </h3>
+
+                                    <p className="mt-4 text-lg leading-8 text-text/75">
+                                        {product.description}
+                                    </p>
+
+                                    <a
+                                        href={siteConfig.whatsappUrl}
+                                        className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-black text-white transition hover:bg-primary-dark"
+                                    >
+                                        {product.button}
+                                        <ArrowRight size={20} />
+                                    </a>
+                                </div>
+                            </article>
+                        </SectionReveal>
                     ))}
                 </div>
             </div>
