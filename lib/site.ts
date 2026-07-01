@@ -31,3 +31,35 @@ export const galleryImages = [
     "/images/galeria-5.jpg",
     "/images/galeria-6.jpg"
 ];
+
+export const contactEmails = [
+    {
+        label: "Atendimento",
+        email: "atendimento@donadete.com.br",
+    },
+    {
+        label: "Comercial",
+        email: "comercial@donadete.com.br",
+    },
+    {
+        label: "Contato",
+        email: "contato@donadete.com.br",
+    },
+    {
+        label: "Distribuidores",
+        email: "distribuidores@donadete.com.br",
+        featured: true,
+    },
+    {
+        label: "Financeiro",
+        email: "financeiro@donadete.com.br",
+    },
+    {
+        label: "Pedidos",
+        email: "pedidos@donadete.com.br",
+    },
+    {
+        label: "Vendas",
+        email: "vendas@donadete.com.br",
+    },
+];
