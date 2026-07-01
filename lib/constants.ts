@@ -7,3 +7,4 @@ export const SOCIAL = {
   phone: "(34) 98439-1993",
 };
 
+
