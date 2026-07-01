@@ -43,7 +43,7 @@ export const contactEmails = [
     },
     {
         label: "Contato",
-        email: "contato@donadete.com.br",
+        email: "atendimento@donadete.com.br",
     },
     {
         label: "Distribuidores",

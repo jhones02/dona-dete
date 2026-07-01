@@ -131,11 +131,11 @@ export default function Footer() {
                             </a>
 
                             <a
-                                href="mailto:contato@donadete.com.br"
+                                href="mailto:atendimento@donadete.com.br"
                                 className="flex items-center gap-2 text-white/80 transition hover:text-brandGold"
                             >
                                 <Mail size={18} />
-                                contato@donadete.com.br
+                                atendimento@donadete.com.br
                             </a>
                         </div>
                     </div>
